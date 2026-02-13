@@ -1,0 +1,40 @@
+# ---- Python bytecode / caches
+__pycache__/
+*.py[cod]
+*.so
+
+# ---- Packaging / build artifacts
+*.egg-info/
+build/
+dist/
+
+# ---- Virtual environments
+.venv/
+
+# ---- IDE / OS junk
+.DS_Store
+.vscode/
+.idea/
+
+# ---- Test / type / lint caches (optional but common)
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- Matplotlib local config (optional)
+.mplconfig/
+
+# ---- Project outputs (generated figures)
+figures/
+figs_papers/
+
+# ---- Competitor vendor file (optional; README explains how to fetch)
+einfact.py
+
+# If you keep a tracked vendor copy, avoid committing patched copies:
+einfact_patched.py
+
+# ---- Data files
+# We currently keep `data/Y.npz` in git (small ~1MB). If you later add larger data,
+# consider Git LFS or re-enable a pattern ignore like `data/*.npz`.
+
