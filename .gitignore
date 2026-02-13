@@ -24,6 +24,9 @@ dist/
 # ---- Matplotlib local config (optional)
 .mplconfig/
 
+# ---- Docs (local notes)
+docs/*.rtf
+
 # ---- Project outputs (generated figures)
 figures/
 figs_papers/
