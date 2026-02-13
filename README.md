@@ -185,7 +185,7 @@ python -m comm.scripts.bench_tucker \
 ### 3) Real-data benchmark (Uber pickups tensor)
 
 We use the *Uber pickups* dataset in the same tensor format as the NNEinFact demo: a nonnegative **5-way**
-count tensor \(X\in\mathbb{R}_+^{27\times 24\times 7\times 100\times 100}\) whose modes correspond to:
+count tensor $X\in\mathbb{R}_+^{27\times 24\times 7\times 100\times 100}$ whose modes correspond to:
 
 - week (27)
 - hour (24)
@@ -193,7 +193,7 @@ count tensor \(X\in\mathbb{R}_+^{27\times 24\times 7\times 100\times 100}\) whos
 - latitude index (100)
 - longitude index (100)
 
-We fit a **nonnegative Tucker** model with multilinear ranks \((10,10,5,10,10)\) under the **β-divergence** loss.
+We fit a **nonnegative Tucker** model with multilinear ranks $(10,10,5,10,10)$ under the **β-divergence** loss.
 For this real-data experiment, we focus on optimization performance and report the **normalized (mean) objective**
 value versus (i) outer iteration and (ii) wall-clock CPU time.
 
@@ -274,13 +274,13 @@ python -m comm.scripts.bench_sweep \
 
 ## Parameters glossary (common)
 
-- `--beta`: β-divergence parameter (\(0 \le \beta < 2\))
+- `--beta`: β-divergence parameter ($0 \le \beta < 2$)
 - `--iters`: number of **outer** iterations
 - `--inner`: number of **inner** iterations for J‑CoMM
 - `--eps`: positivity safeguard (clipping floor)
-- `--shape`: tensor shape \(I_1 I_2 ... I_N\)
-- `--rank` (CP): CP rank \(R\)
-- `--ranks` / `--tucker_ranks` (Tucker): Tucker multilinear ranks \(J_1 ... J_N\)
+- `--shape`: tensor shape $I_1 I_2 ... I_N$
+- `--rank` (CP): CP rank $R$
+- `--ranks` / `--tucker_ranks` (Tucker): Tucker multilinear ranks $J_1 ... J_N$
 - `--seed`: RNG seed for reproducibility
 - `--run_einfact`: enable competitor (requires `pip install -e ".[competitors]"`)
 - `--einfact_path`: path to `einfact.py` (vendor file)
