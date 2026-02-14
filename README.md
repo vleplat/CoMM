@@ -49,14 +49,20 @@ Here, $\mathrm{Num}_b$ and $\mathrm{Den}_b$ are obtained via **contraction-only*
 contractions), so no explicit unfolding is required.
 
 ### Joint-MM (J-CoMM)
-J-CoMM goes beyond block surrogates by constructing a **single joint majorizer** that is **separable across the entries
-of all blocks simultaneously**, and applies to both CP and Tucker models.
-The joint surrogate is built at a reference iterate $\widetilde\Theta$ and then decreased by a few inexpensive inner
-multiplicative updates. In practice, this design also enables efficient implementations that reuse reference-powered
-tensors computed once at $\widetilde\Theta$, e.g.,
-$\widetilde{\mathcal P} = X \odot \widetilde{\widehat X}^{\,\beta-2},
+J-CoMM constructs a **single joint majorizer** \(G(\Theta\mid\widetilde\Theta)\) for all tensor parameters \(\Theta\).
+During an inner sweep, it updates one block at a time using **closed-form multiplicative rules**: when all other
+blocks are fixed, the surrogate \(G(\cdot\mid\widetilde\Theta)\) becomes **entrywise separable in the active block**,
+so each block update is an exact minimizer of \(G(\cdot\mid\widetilde\Theta)\) with respect to that block.
+
+J-CoMM applies to both **nonnegative CP** and **nonnegative Tucker** models. The joint surrogate is built at a
+reference iterate \(\widetilde\Theta\) and then decreased by a few inexpensive inner sweeps. This structure also
+enables efficient implementations that reuse reference-powered tensors computed once at \(\widetilde\Theta\), e.g.
+\[
+\widetilde{\mathcal P} = X \odot \widetilde{\widehat X}^{\,\beta-2},
 \qquad
-\widetilde{\mathcal Q} = \widetilde{\widehat X}^{\,\beta-1}.$
+\widetilde{\mathcal Q} = \widetilde{\widehat X}^{\,\beta-1}.
+\]
+
 
 
 
@@ -320,11 +326,20 @@ comm_project/
   LICENSE
 ```
 
+## 📚 References
+
+- **NNEinFact**: John Hood and Aaron Schein (2026). Near-Universal Multiplicative Updates for Nonnegative Einsum Factorization. arXiv preprint arXiv:2602.02759.
+
 ## License
 
 MIT License — see `LICENSE`.
 
-## Citation
+## 📖 How to Cite
 
 If you use this code in academic work, please cite the accompanying paper draft (TeX) and/or include a reference to this repository.
+
+## 📧 Support and Contact
+
+For questions, bug reports, or contributions, please contact:
+**v dot leplat [at] innopolis dot ru**
 
