@@ -85,11 +85,25 @@ If `python3` is not available on your system, try:
 python --version
 ```
 
+**Windows (PowerShell)**:
+
+```powershell
+py --version
+python --version
+```
+
 ### Step 2: Download CoMM
 
 #### Option A (recommended): clone with git
 
 ```bash
+git clone https://github.com/vleplat/CoMM.git
+cd CoMM
+```
+
+**Windows (PowerShell)**:
+
+```powershell
 git clone https://github.com/vleplat/CoMM.git
 cd CoMM
 ```
@@ -111,9 +125,31 @@ source .venv/bin/activate
 python -m pip install -U pip
 ```
 
+**Windows (PowerShell)**:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -U pip
+```
+
+**Windows (cmd.exe)**:
+
+```bat
+py -m venv .venv
+.venv\Scripts\activate.bat
+python -m pip install -U pip
+```
+
 ### Step 4: Install CoMM
 
 ```bash
+python -m pip install -e .
+```
+
+**Windows (PowerShell)**:
+
+```powershell
 python -m pip install -e .
 ```
 
@@ -122,6 +158,12 @@ python -m pip install -e .
 To enable NNEinFact comparisons (PyTorch):
 
 ```bash
+python -m pip install -e ".[competitors]"
+```
+
+**Windows (PowerShell)**:
+
+```powershell
 python -m pip install -e ".[competitors]"
 ```
 
@@ -151,6 +193,8 @@ curl -L -o einfact.py https://raw.githubusercontent.com/jhood3/einfact/main/einf
 
 All scripts are modules under `comm.scripts` and should be executed with `python -m ...`.
 Figures are saved under `figures/` by default.
+
+On Windows, run the same commands from **PowerShell** once your virtual environment is activated.
 
 ### 1) Synthetic CP benchmark
 
