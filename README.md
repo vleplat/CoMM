@@ -49,19 +49,17 @@ Here, $\mathrm{Num}_b$ and $\mathrm{Den}_b$ are obtained via **contraction-only*
 contractions), so no explicit unfolding is required.
 
 ### Joint-MM (J-CoMM)
-J-CoMM constructs a **single joint majorizer** \(G(\Theta\mid\widetilde\Theta)\) for all tensor parameters \(\Theta\).
+J-CoMM constructs a **single joint majorizer** $G(\Theta\mid\widetilde\Theta)$ for all tensor parameters $\Theta$.
 During an inner sweep, it updates one block at a time using **closed-form multiplicative rules**: when all other
-blocks are fixed, the surrogate \(G(\cdot\mid\widetilde\Theta)\) becomes **entrywise separable in the active block**,
-so each block update is an exact minimizer of \(G(\cdot\mid\widetilde\Theta)\) with respect to that block.
+blocks are fixed, the surrogate $G(\cdot\mid\widetilde\Theta)$ becomes **entrywise separable in the active block**,
+so each block update is an exact minimizer of $G(\cdot\mid\widetilde\Theta)$ with respect to that block.
 
 J-CoMM applies to both **nonnegative CP** and **nonnegative Tucker** models. The joint surrogate is built at a
-reference iterate \(\widetilde\Theta\) and then decreased by a few inexpensive inner sweeps. This structure also
-enables efficient implementations that reuse reference-powered tensors computed once at \(\widetilde\Theta\), e.g.
-\[
-\widetilde{\mathcal P} = X \odot \widetilde{\widehat X}^{\,\beta-2},
+reference iterate $\widetilde\Theta$ and then decreased by a few inexpensive inner sweeps. This structure also
+enables efficient implementations that reuse reference-powered tensors computed once at $\widetilde\Theta$, e.g.
+$\widetilde{\mathcal P} = X \odot \widetilde{\widehat X}^{\,\beta-2},
 \qquad
-\widetilde{\mathcal Q} = \widetilde{\widehat X}^{\,\beta-1}.
-\]
+\widetilde{\mathcal Q} = \widetilde{\widehat X}^{\,\beta-1}.$
 
 
 
