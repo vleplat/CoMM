@@ -1,3 +1,8 @@
+<p align="left">
+  <img src="assets/comm_logo.png" alt="CoMM logo" width="64" style="vertical-align:middle; margin-right:10px;" />
+  <span style="font-size: 22px; font-weight: 600;">CoMM</span>
+  <span> — contraction-only MM for nonnegative CP/Tucker under β-divergences</span>
+</p>
 ## Overview
 
 **CoMM** is an efficient algoritmic framework for **constrained nonnegative tensor factorization**
