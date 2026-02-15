@@ -3,10 +3,11 @@
   <span style="font-size: 22px; font-weight: 600;">CoMM</span>
   <span> — contraction-only MM for nonnegative CP/Tucker under β-divergences</span>
 </p>
+
 ## Overview
 
-**CoMM** is an efficient algoritmic framework for **constrained nonnegative tensor factorization**
-under the **entry-wise β-divergence** family ($$0 \le \beta < 2$$), with a focus on:
+**CoMM** is an efficient algoritmic framework for constrained nonnegative tensor factorization
+under the entry-wise β-divergence family ($$0 \le \beta < 2$$), with a focus on:
 
 - **Nonnegative CP decomposition**
 - **Nonnegative Tucker decomposition**
@@ -39,7 +40,7 @@ including common special cases such as:
 - $\beta = 1$: generalized KL divergence
 - $\beta = 0$: Itakura–Saito divergence
 
-All factors (and the Tucker core) are maintained **strictly positive** via a small safeguard $\varepsilon>0$
+All factors (and the Tucker core) are maintained strictly positive via a small safeguard $\varepsilon>0$
 to avoid numerical issues when evaluating powers like $\widehat X^{\beta-1}$.
 
 ## Core idea(s) 
@@ -48,16 +49,16 @@ We minimize an entry-wise β-divergence objective of the form
 $D_\beta(\mathcal X,\widehat{\mathcal X}) = \sum_i d_\beta(X_i \mid \widehat X_i).$
 
 ### Block-MM (B-CoMM)
-At each outer iteration, we construct a **tight majorizing surrogate** that is **separable in the entries of one block**
+At each outer iteration, we construct a tight majorizing surrogate that is separable in the entries of one block
 (one factor matrix, or the Tucker core), which yields a closed-form multiplicative update of the generic form
 $\Theta_b \leftarrow \Theta_b \odot \left(\frac{\mathrm{Num}_b}{\mathrm{Den}_b}\right)^{\gamma(\beta)}.$
-Here, $\mathrm{Num}_b$ and $\mathrm{Den}_b$ are obtained via **contraction-only** operators (einsum-style tensor
+Here, $\mathrm{Num}_b$ and $\mathrm{Den}_b$ are obtained via contraction-only operators (einsum-style tensor
 contractions), so no explicit unfolding is required.
 
 ### Joint-MM (J-CoMM)
-J-CoMM constructs a **single joint majorizer** $G(\Theta\mid\widetilde\Theta)$ for all tensor parameters $\Theta$.
-During an inner sweep, it updates one block at a time using **closed-form multiplicative rules**: when all other
-blocks are fixed, the surrogate $G(\cdot\mid\widetilde\Theta)$ becomes **entrywise separable in the active block**,
+J-CoMM constructs a single joint majorizer $G(\Theta\mid\widetilde\Theta)$ for all tensor parameters $\Theta$.
+During an inner sweep, it updates one block at a time using closed-form multiplicative rules: when all other
+blocks are fixed, the surrogate $G(\cdot\mid\widetilde\Theta)$ becomes entrywise separable in the active block,
 so each block update is an exact minimizer of $G(\cdot\mid\widetilde\Theta)$ with respect to that block.
 
 J-CoMM applies to both **nonnegative CP** and **nonnegative Tucker** models. The joint surrogate is built at a
