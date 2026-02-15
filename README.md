@@ -12,6 +12,7 @@ Classical multiplicative updates for CP/Tucker are often presented via **mode un
 large intermediate objects (e.g., explicit Khatri–Rao/Kronecker products, unfolded tensors).
 CoMM instead expresses all update quantities **directly as tensor contractions** over index sets, implemented with
 `einsum` backends (`numpy.einsum`, `opt_einsum`), so that the core algorithms never require explicit unfoldings.
+If you’re new to `einsum`, a very accessible tutorial is: [“Einsum is All You Need”](https://rockt.ai/2018/04/30/einsum).
 
 ### Implemented algorithms
 
