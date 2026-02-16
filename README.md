@@ -327,6 +327,100 @@ python -m comm.scripts.bench_sweep \
   --logy --start_iter 1
 ```
 
+### 6) Tutorial: use CoMM as a Python library (direct API)
+
+You do **not** need an extra script inside this repo to use CoMM on your own tensor.
+Once you installed CoMM (`python -m pip install -e .`), you can either:
+
+- **Option A**: write a small Python file (recommended for reproducibility), or
+- **Option B**: run a one-off snippet directly from your terminal.
+
+Below, `X` is your nonnegative NumPy tensor (dense `ndarray`).
+
+#### CP decomposition (B-CoMM / J-CoMM)
+
+```python
+import numpy as np
+from comm.models.cp import cp_bcomm, cp_jcomm
+
+X = ...  # ndarray, shape (I1,...,IN), X >= 0
+beta = 1.5
+R = 10
+eps = 1e-12
+n_outer = 100
+n_inner = 1
+
+rng = np.random.default_rng(0)
+A0 = [rng.random((X.shape[n], R)) + 1e-3 for n in range(X.ndim)]
+
+A_b, loss_b, t_b = cp_bcomm(X, A0, beta=beta, n_outer=n_outer, eps=eps)
+A_j, loss_j, t_j = cp_jcomm(X, A0, beta=beta, n_outer=n_outer, n_inner=n_inner, eps=eps)
+```
+
+#### Tucker decomposition (B-CoMM / J-CoMM)
+
+```python
+import numpy as np
+from comm.models.tucker import tucker_bcomm, tucker_jcomm
+
+X = ...  # ndarray, shape (I1,...,IN), X >= 0
+beta = 1.5
+ranks = (10, 10, 5, 10, 10)  # (J1,...,JN)
+eps = 1e-12
+n_outer = 100
+n_inner = 1
+
+rng = np.random.default_rng(0)
+G0 = rng.random(ranks) + 1e-3
+A0 = [rng.random((X.shape[n], ranks[n])) + 1e-3 for n in range(X.ndim)]
+
+G_b, A_b, loss_b, t_b = tucker_bcomm(X, G0, A0, beta=beta, n_outer=n_outer, eps=eps)
+G_j, A_j, loss_j, t_j = tucker_jcomm(X, G0, A0, beta=beta, n_outer=n_outer, n_inner=n_inner, eps=eps)
+```
+
+#### Plotting convergence (loss vs iteration and loss vs time)
+
+You can plot the optimization history using the helper `comm.utils.plotting.plot_histories`:
+
+```python
+from pathlib import Path
+from comm.utils.plotting import plot_histories
+
+histories = {
+    "B-CoMM": (loss_b / X.size, t_b),
+    "J-CoMM": (loss_j / X.size, t_j),
+}
+
+plot_histories(
+    histories,
+    title=f"CP, beta={beta}",
+    ylabel="mean loss",
+    save_dir=Path("figures"),
+    filename="tutorial_cp_beta",
+    yscale="log",
+    start_iter=1,
+    show=True,
+)
+```
+
+#### Running a snippet directly from terminal (no file)
+
+```bash
+python - <<'PY'
+import numpy as np
+from comm.models.cp import cp_jcomm
+
+X = np.random.rand(20, 18, 16, 14).astype(np.float32)  # replace by your tensor
+beta = 1.5
+R = 6
+rng = np.random.default_rng(0)
+A0 = [rng.random((X.shape[n], R), dtype=np.float32) + 1e-3 for n in range(X.ndim)]
+
+A, loss, tt = cp_jcomm(X, A0, beta=beta, n_outer=20, n_inner=1, eps=1e-12)
+print("final mean loss:", float(loss[-1] / X.size))
+PY
+```
+
 ## Parameters glossary (common)
 
 - `--beta`: β-divergence parameter ($0 \le \beta < 2$)
