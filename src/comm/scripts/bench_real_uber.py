@@ -393,6 +393,15 @@ def main():
     # data
     ap.add_argument("--data", type=str, default="data/Y.npz")
     ap.add_argument("--key", type=str, default="Y")
+    ap.add_argument(
+        "--x_floor",
+        type=float,
+        default=0.0,
+        help=(
+            "Optional positive floor applied to the data tensor Y (Y <- max(Y, x_floor)). "
+            "This is useful for beta=0 (Itakura–Saito), where zeros in Y make the objective infinite."
+        ),
+    )
 
     # divergence + iterations
     ap.add_argument("--beta", type=float, default=1.5)
@@ -462,6 +471,10 @@ def main():
 
     # work in float32 (important for memory here)
     Y = to_float32(Y)
+    if float(args.x_floor) > 0.0:
+        xf = float(args.x_floor)
+        Y = np.maximum(Y, xf)
+        print(f"Applied data floor: x_floor={xf:g} (Y <- max(Y, x_floor))")
 
     N = Y.ndim
     ranks = tuple(args.tucker_ranks)
