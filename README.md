@@ -479,7 +479,21 @@ MIT License — see `LICENSE`.
 
 ## 📖 How to Cite
 
-If you use this code in academic work, please cite the accompanying paper draft (TeX) and/or include a reference to this repository.
+If you use this code in academic work, please cite the accompanying paper draft 
+
+```
+@misc{leplat2026jointmajorizationminimizationnonnegativecp,
+      title={Joint Majorization-Minimization for Nonnegative CP and Tucker Decompositions under $\beta$-Divergences: Unfolding-Free Updates}, 
+      author={Valentin Leplat},
+      year={2026},
+      eprint={2602.14683},
+      archivePrefix={arXiv},
+      primaryClass={math.OC},
+      url={https://arxiv.org/abs/2602.14683}, 
+}
+```
+
+and include a reference to this repository.
 
 ## 📧 Support and Contact
 
