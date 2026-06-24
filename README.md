@@ -498,5 +498,5 @@ and include a reference to this repository.
 ## 📧 Support and Contact
 
 For questions, bug reports, or contributions, please contact:
-**v dot leplat [at] innopolis dot ru**
+**valentin dot leplat [at] gmail dot com**
 
